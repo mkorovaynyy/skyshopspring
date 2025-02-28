@@ -7,9 +7,7 @@ import org.skypro.skyshop.model.product.Product;
 import org.skypro.skyshop.model.product.SimpleProduct;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class StorageService {
@@ -39,5 +37,40 @@ public class StorageService {
         storageOfProducts.put(juice.getId(), juice);
         storageOfArticles.put(article1.getId(), article1);
         storageOfArticles.put(article2.getId(), article2);
+    }
+
+    public Collection<Product> getAllProducts() {
+        return storageOfProducts.values();
+    }
+    public Collection<Article> getAllArticles() {
+        return storageOfArticles.values();
+    }
+
+    public Map<UUID, Product> getStorageOfProducts() {
+        return storageOfProducts;
+    }
+
+    public Map<UUID, Article> getStorageOfArticles() {
+        return storageOfArticles;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        StorageService that = (StorageService) o;
+        return Objects.equals(storageOfProducts, that.storageOfProducts) && Objects.equals(storageOfArticles, that.storageOfArticles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(storageOfProducts, storageOfArticles);
+    }
+
+    @Override
+    public String toString() {
+        return "StorageService{" +
+                "storageOfProducts=" + storageOfProducts +
+                ", storageOfArticles=" + storageOfArticles +
+                '}';
     }
 }
