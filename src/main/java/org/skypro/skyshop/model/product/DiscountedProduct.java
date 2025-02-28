@@ -1,13 +1,15 @@
 package org.skypro.skyshop.model.product;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class DiscountedProduct extends Product {
     private Integer basePrice;
     private Integer discountPercent;
+    private final UUID id;
 
-    public DiscountedProduct(String name, Integer basePrice, Integer discountPercent) {
-        super(name);
+    public DiscountedProduct(String name, Integer basePrice, Integer discountPercent, UUID id) {
+        super(name, id);
         if (basePrice <= 0) {
             throw new IllegalArgumentException("Базовая цена продукта должна быть строго больше 0.");
         }
@@ -17,6 +19,7 @@ public class DiscountedProduct extends Product {
 
         this.basePrice = basePrice;
         this.discountPercent = discountPercent;
+        this.id = id;
     }
 
     @Override
@@ -53,5 +56,10 @@ public class DiscountedProduct extends Product {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), basePrice, discountPercent);
+    }
+
+    @Override
+    public UUID getId() {
+        return id;
     }
 }
