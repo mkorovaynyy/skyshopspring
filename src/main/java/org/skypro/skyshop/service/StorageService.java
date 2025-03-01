@@ -5,9 +5,12 @@ import org.skypro.skyshop.model.product.DiscountedProduct;
 import org.skypro.skyshop.model.product.FixPriceProduct;
 import org.skypro.skyshop.model.product.Product;
 import org.skypro.skyshop.model.product.SimpleProduct;
+import org.skypro.skyshop.model.search.Searchable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class StorageService {
@@ -42,6 +45,7 @@ public class StorageService {
     public Collection<Product> getAllProducts() {
         return storageOfProducts.values();
     }
+
     public Collection<Article> getAllArticles() {
         return storageOfArticles.values();
     }
@@ -52,6 +56,14 @@ public class StorageService {
 
     public Map<UUID, Article> getStorageOfArticles() {
         return storageOfArticles;
+    }
+
+    // Метод для возврата всех Searchable (продуктов и статей)
+    public Collection<Searchable> getAllSearchables() {
+        return Stream.concat(
+                storageOfProducts.values().stream(),
+                storageOfArticles.values().stream()
+        ).collect(Collectors.toList());
     }
 
     @Override
