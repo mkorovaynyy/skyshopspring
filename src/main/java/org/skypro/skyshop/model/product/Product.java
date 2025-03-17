@@ -1,17 +1,23 @@
 package org.skypro.skyshop.model.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.skypro.skyshop.model.search.Searchable;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
+import java.util.UUID;
 
+@Component
 public abstract class Product implements Searchable {
     private String name;
+    private final UUID id;
 
-    public Product(String name) {
+    public Product(String name, UUID id) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Название продукта не может быть пустым или состоять только из пробелов.");
         }
         this.name = name;
+        this.id = id;
     }
 
     // Абстрактный метод для получения цены
@@ -20,11 +26,14 @@ public abstract class Product implements Searchable {
     // Метод для проверки, является ли товар специальным
     public abstract boolean isSpecial();
 
+
+    @JsonIgnore
     @Override
     public String getSearchTerm() {
         return getName(); // Поиск по имени товара
     }
 
+    @JsonIgnore
     @Override
     public String getContentType() {
         return "PRODUCT"; // Тип контента — товар

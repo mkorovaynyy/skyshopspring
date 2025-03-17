@@ -1,5 +1,7 @@
 package org.skypro.skyshop.model.search;
 
+import java.util.UUID;
+
 public interface Searchable {
     // Метод для получения термина поиска
     String getSearchTerm();
@@ -14,4 +16,7 @@ public interface Searchable {
     default String getStringRepresentation() {
         return getName() + " — " + getContentType();
     }
+
+    // Метод для получения id
+    UUID getId();
 }
